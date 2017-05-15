@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.6.4
+- https://www.phpmyadmin.net
+-
+- Počítač: 127.0.0.1
+- Vytvořeno: Stř 07. pro 2016, 15:59
+- Verze serveru: 5.7.14
+- Verze PHP: 5.6.25
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="sp2" collation="utf8_czech_ci" charset="utf8">
+            <pma:table name="hodnoceni">
+                CREATE TABLE `hodnoceni` (
+                  `Uzivatel_idUzivatel` int(11) NOT NULL,
+                  `Prispevky_idPrispevky` int(11) NOT NULL,
+                  `Zpracovani` int(11) DEFAULT NULL,
+                  `Obsah` int(11) DEFAULT NULL,
+                  `Styl` int(11) DEFAULT NULL,
+                  PRIMARY KEY (`Uzivatel_idUzivatel`,`Prispevky_idPrispevky`),
+                  KEY `fk_Uzivatel_has_Prispevky_Prispevky1_idx` (`Prispevky_idPrispevky`),
+                  KEY `fk_Uzivatel_has_Prispevky_Uzivatel_idx` (`Uzivatel_idUzivatel`),
+                  KEY `Prispevky_idPrispevky` (`Prispevky_idPrispevky`),
+                  CONSTRAINT `fk_Uzivatel_has_Prispevky_Prispevky1` FOREIGN KEY (`Prispevky_idPrispevky`) REFERENCES `prispevky` (`idPrispevky`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+                  CONSTRAINT `fk_Uzivatel_has_Prispevky_Uzivatel` FOREIGN KEY (`Uzivatel_idUzivatel`) REFERENCES `uzivatel` (`idUzivatel`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="prava">
+                CREATE TABLE `prava` (
+                  `idPrava` int(11) NOT NULL AUTO_INCREMENT,
+                  `Nazev` varchar(20) CHARACTER SET utf8 COLLATE utf8_czech_ci NOT NULL,
+                  PRIMARY KEY (`idPrava`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="prispevky">
+                CREATE TABLE `prispevky` (
+                  `idPrispevky` int(11) NOT NULL AUTO_INCREMENT,
+                  `idAutor` int(11) NOT NULL,
+                  `Nazev` varchar(45) COLLATE utf8_czech_ci NOT NULL,
+                  `NazevSouboru` varchar(200) COLLATE utf8_czech_ci DEFAULT NULL,
+                  `Datum` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                  `Popis` varchar(400) COLLATE utf8_czech_ci NOT NULL,
+                  `idStav` int(11) NOT NULL,
+                  `Smazano` int(11) NOT NULL DEFAULT '0' COMMENT 'Priznak pro Delete',
+                  PRIMARY KEY (`idPrispevky`),
+                  KEY `fk_Prispevky_Stav1_idx` (`idStav`),
+                  CONSTRAINT `fk_Prispevky_Stav1` FOREIGN KEY (`idStav`) REFERENCES `stav` (`idStav`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+            </pma:table>
+            <pma:table name="stav">
+                CREATE TABLE `stav` (
+                  `idStav` int(11) NOT NULL AUTO_INCREMENT,
+                  `Stav` varchar(45) CHARACTER SET latin1 NOT NULL,
+                  PRIMARY KEY (`idStav`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+            </pma:table>
+            <pma:table name="uzivatel">
+                CREATE TABLE `uzivatel` (
+                  `idUzivatel` int(11) NOT NULL AUTO_INCREMENT,
+                  `Login` varchar(20) NOT NULL,
+                  `Heslo` varchar(20) NOT NULL,
+                  `Jmeno` varchar(45) NOT NULL,
+                  `Email` varchar(45) NOT NULL,
+                  `idPrava` int(11) NOT NULL,
+                  `Smazano` int(11) NOT NULL DEFAULT '0',
+                  PRIMARY KEY (`idUzivatel`),
+                  UNIQUE KEY `Login_UNIQUE` (`Login`),
+                  KEY `fk_Uzivatel_Prava1_idx` (`idPrava`),
+                  CONSTRAINT `fk_Uzivatel_Prava1` FOREIGN KEY (`idPrava`) REFERENCES `prava` (`idPrava`) ON DELETE NO ACTION ON UPDATE NO ACTION
+                ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Databáze: 'sp'
+    -->
+    <database name="sp">
+        <!-- Tabulka hodnoceni -->
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">2</column>
+            <column name="Prispevky_idPrispevky">22</column>
+            <column name="Zpracovani">3</column>
+            <column name="Obsah">5</column>
+            <column name="Styl">4</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">2</column>
+            <column name="Prispevky_idPrispevky">23</column>
+            <column name="Zpracovani">5</column>
+            <column name="Obsah">3</column>
+            <column name="Styl">2</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">2</column>
+            <column name="Prispevky_idPrispevky">24</column>
+            <column name="Zpracovani">2</column>
+            <column name="Obsah">2</column>
+            <column name="Styl">2</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">5</column>
+            <column name="Prispevky_idPrispevky">18</column>
+            <column name="Zpracovani">1</column>
+            <column name="Obsah">1</column>
+            <column name="Styl">1</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">5</column>
+            <column name="Prispevky_idPrispevky">22</column>
+            <column name="Zpracovani">3</column>
+            <column name="Obsah">5</column>
+            <column name="Styl">5</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">5</column>
+            <column name="Prispevky_idPrispevky">23</column>
+            <column name="Zpracovani">4</column>
+            <column name="Obsah">2</column>
+            <column name="Styl">1</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">5</column>
+            <column name="Prispevky_idPrispevky">24</column>
+            <column name="Zpracovani">1</column>
+            <column name="Obsah">2</column>
+            <column name="Styl">3</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">6</column>
+            <column name="Prispevky_idPrispevky">18</column>
+            <column name="Zpracovani">4</column>
+            <column name="Obsah">4</column>
+            <column name="Styl">4</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">6</column>
+            <column name="Prispevky_idPrispevky">19</column>
+            <column name="Zpracovani">1</column>
+            <column name="Obsah">1</column>
+            <column name="Styl">1</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">6</column>
+            <column name="Prispevky_idPrispevky">20</column>
+            <column name="Zpracovani">5</column>
+            <column name="Obsah">3</column>
+            <column name="Styl">1</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">6</column>
+            <column name="Prispevky_idPrispevky">22</column>
+            <column name="Zpracovani">3</column>
+            <column name="Obsah">4</column>
+            <column name="Styl">2</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">6</column>
+            <column name="Prispevky_idPrispevky">23</column>
+            <column name="Zpracovani">5</column>
+            <column name="Obsah">5</column>
+            <column name="Styl">5</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">6</column>
+            <column name="Prispevky_idPrispevky">24</column>
+            <column name="Zpracovani">1</column>
+            <column name="Obsah">2</column>
+            <column name="Styl">4</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">6</column>
+            <column name="Prispevky_idPrispevky">27</column>
+            <column name="Zpracovani">NULL</column>
+            <column name="Obsah">NULL</column>
+            <column name="Styl">NULL</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">9</column>
+            <column name="Prispevky_idPrispevky">18</column>
+            <column name="Zpracovani">2</column>
+            <column name="Obsah">3</column>
+            <column name="Styl">5</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">9</column>
+            <column name="Prispevky_idPrispevky">19</column>
+            <column name="Zpracovani">3</column>
+            <column name="Obsah">4</column>
+            <column name="Styl">1</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">9</column>
+            <column name="Prispevky_idPrispevky">20</column>
+            <column name="Zpracovani">4</column>
+            <column name="Obsah">1</column>
+            <column name="Styl">1</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">9</column>
+            <column name="Prispevky_idPrispevky">27</column>
+            <column name="Zpracovani">4</column>
+            <column name="Obsah">4</column>
+            <column name="Styl">2</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">10</column>
+            <column name="Prispevky_idPrispevky">19</column>
+            <column name="Zpracovani">3</column>
+            <column name="Obsah">3</column>
+            <column name="Styl">4</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">10</column>
+            <column name="Prispevky_idPrispevky">20</column>
+            <column name="Zpracovani">3</column>
+            <column name="Obsah">3</column>
+            <column name="Styl">4</column>
+        </table>
+        <table name="hodnoceni">
+            <column name="Uzivatel_idUzivatel">10</column>
+            <column name="Prispevky_idPrispevky">27</column>
+            <column name="Zpracovani">NULL</column>
+            <column name="Obsah">NULL</column>
+            <column name="Styl">NULL</column>
+        </table>
+        <!-- Tabulka prava -->
+        <table name="prava">
+            <column name="idPrava">1</column>
+            <column name="Nazev">Administrator</column>
+        </table>
+        <table name="prava">
+            <column name="idPrava">2</column>
+            <column name="Nazev">Recenzent</column>
+        </table>
+        <table name="prava">
+            <column name="idPrava">3</column>
+            <column name="Nazev">Autor</column>
+        </table>
+        <table name="prava">
+            <column name="idPrava">4</column>
+            <column name="Nazev">Boss</column>
+        </table>
+        <!-- Tabulka prispevky -->
+        <table name="prispevky">
+            <column name="idPrispevky">18</column>
+            <column name="idAutor">5</column>
+            <column name="Nazev">Solný důl</column>
+            <column name="NazevSouboru">18.pdf</column>
+            <column name="Datum">2016-11-21 18:30:04</column>
+            <column name="Popis">Desítky metrů pod ruským Jekatěrinburgem leží fascinující svět. Tamní solný důl je sice využívaný už jen z části, přesto se do něj jen tak někdo nepodívá, veřejnost už vůbec ne. Kvůli barevným vzorům, které pokrývají stěny i stropy, se mu říká psychedelický a lehce nadneseně by se dalo říct, že je opravdu zhmotněnou a vizuálně opojnou halucinací.</column>
+            <column name="idStav">1</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="prispevky">
+            <column name="idPrispevky">19</column>
+            <column name="idAutor">3</column>
+            <column name="Nazev">Advent se přiblížil</column>
+            <column name="NazevSouboru">19.pdf</column>
+            <column name="Datum">2016-11-21 18:31:59</column>
+            <column name="Popis">Hrníčky s vánoční tematikou, v nichž prodejci podávají na vánočních trzích nápoje, se staly předmětem sběratelského zájmu. Jedny z nejoblíbenějších najdete v Drážďanech na Striezelmarktu. Letošním motivem na hrnku je pět zpívajících chlapců z pěveckého sboru Kreuzchor.</column>
+            <column name="idStav">2</column>
+            <column name="Smazano">1</column>
+        </table>
+        <table name="prispevky">
+            <column name="idPrispevky">20</column>
+            <column name="idAutor">3</column>
+            <column name="Nazev">Zima v Německu</column>
+            <column name="NazevSouboru">20.pdf</column>
+            <column name="Datum">2016-11-21 18:34:20</column>
+            <column name="Popis">Oblast Ammergauských Alp na jihu Bavorska nadchne lyžaře všech kategorií. Především rodiny s dětmi, které si chtějí vychutnat pravou alpskou lyžovačku a vše, co k ní patří, se tu budou cítit jako v sedmém nebi.</column>
+            <column name="idStav">1</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="prispevky">
+            <column name="idPrispevky">22</column>
+            <column name="idAutor">5</column>
+            <column name="Nazev">Vedro v plavkach</column>
+            <column name="NazevSouboru">22.pdf</column>
+            <column name="Datum">2016-11-23 20:06:24</column>
+            <column name="Popis">Na světě existují místa, kde vám zmrzlina roztaje dřív, než stačíte říct Celsius. Pokud jste si dosud mysleli, že nejteplejším místem na planetě je Sahara, byli jste na omylu. Íránská poušť Lút je mnohem větší extrém, teploty tam přesahují i 50 stupňů. Zmrzlinu byste si naopak rozhodně nemohli dát v ruském Ojmjakonu, protože při -71,2 stupně by vám k ní přimrzl jazyk. Kde tedy vládnou ty neje</column>
+            <column name="idStav">1</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="prispevky">
+            <column name="idPrispevky">23</column>
+            <column name="idAutor">5</column>
+            <column name="Nazev">Tajemná šumava</column>
+            <column name="NazevSouboru">23.pdf</column>
+            <column name="Datum">2016-11-23 20:10:32</column>
+            <column name="Popis">Je ukrytá v lese nad Velkým Radkovem, její stáří se odhaduje na více než sto let a přesně se neví, kdo, kdy a proč ji postavil.
+</column>
+            <column name="idStav">1</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="prispevky">
+            <column name="idPrispevky">24</column>
+            <column name="idAutor">3</column>
+            <column name="Nazev">  Šumava se ponořila</column>
+            <column name="NazevSouboru">24.pdf</column>
+            <column name="Datum">2016-11-23 23:29:10</column>
+            <column name="Popis"> Stromy ohýbající se pod tíhou sněhu, zaváté a místy zledovatělé silnice, první běžkaři. Tak o víkendu vypadaly šumavské kopce.   </column>
+            <column name="idStav">2</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="prispevky">
+            <column name="idPrispevky">27</column>
+            <column name="idAutor">3</column>
+            <column name="Nazev">Dlouhý lovec</column>
+            <column name="NazevSouboru">27.pdf</column>
+            <column name="Datum">2016-11-30 23:57:14</column>
+            <column name="Popis">obrodružný příběh, odehrávající se v jihoamerické divočině na počátku 20. století. Kniha navazuje na předchozí 2 příběhy - Strýček Indián a Hadí ostrov. Tenkrát byli indiánští náčelníci odhodláni bránit svoji zem a slovo lovce platilo víc než zákon. Ilustroval Zdeněk Burian.</column>
+            <column name="idStav">3</column>
+            <column name="Smazano">0</column>
+        </table>
+        <!-- Tabulka stav -->
+        <table name="stav">
+            <column name="idStav">1</column>
+            <column name="Stav">Schváleno</column>
+        </table>
+        <table name="stav">
+            <column name="idStav">2</column>
+            <column name="Stav">Odmítnuto</column>
+        </table>
+        <table name="stav">
+            <column name="idStav">3</column>
+            <column name="Stav">Hodnotí se</column>
+        </table>
+        <table name="stav">
+            <column name="idStav">4</column>
+            <column name="Stav">Nahráno</column>
+        </table>
+        <!-- Tabulka uzivatel -->
+        <table name="uzivatel">
+            <column name="idUzivatel">1</column>
+            <column name="Login">admin</column>
+            <column name="Heslo">admin</column>
+            <column name="Jmeno">admin</column>
+            <column name="Email">admin@admin.com</column>
+            <column name="idPrava">1</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">2</column>
+            <column name="Login">Jokertwo</column>
+            <column name="Heslo">heslo</column>
+            <column name="Jmeno">Petr</column>
+            <column name="Email">p.lastovka@seznam.cz</column>
+            <column name="idPrava">2</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">3</column>
+            <column name="Login">autor</column>
+            <column name="Heslo">autor</column>
+            <column name="Jmeno">autor</column>
+            <column name="Email">autor@autor.com</column>
+            <column name="idPrava">3</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">5</column>
+            <column name="Login">opus</column>
+            <column name="Heslo">opus</column>
+            <column name="Jmeno">Pokus</column>
+            <column name="Email">pokus@pokus.com</column>
+            <column name="idPrava">2</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">6</column>
+            <column name="Login">Joke</column>
+            <column name="Heslo">joke</column>
+            <column name="Jmeno">JokeTwo</column>
+            <column name="Email">joker@joker.com</column>
+            <column name="idPrava">2</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">7</column>
+            <column name="Login">sakal</column>
+            <column name="Heslo">pss</column>
+            <column name="Jmeno">Jarolim</column>
+            <column name="Email">pokus@pokus.com</column>
+            <column name="idPrava">3</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">8</column>
+            <column name="Login">boss</column>
+            <column name="Heslo">boss</column>
+            <column name="Jmeno">boss</column>
+            <column name="Email">boss@boss.com</column>
+            <column name="idPrava">4</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">9</column>
+            <column name="Login">recen</column>
+            <column name="Heslo">recen</column>
+            <column name="Jmeno">recen</column>
+            <column name="Email">recen@recen.com</column>
+            <column name="idPrava">2</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">10</column>
+            <column name="Login">makac</column>
+            <column name="Heslo">makac</column>
+            <column name="Jmeno">makac</column>
+            <column name="Email">makac@makac.com</column>
+            <column name="idPrava">2</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">11</column>
+            <column name="Login">jan</column>
+            <column name="Heslo">jan</column>
+            <column name="Jmeno">Jan Veliký</column>
+            <column name="Email">jan@jan.com</column>
+            <column name="idPrava">3</column>
+            <column name="Smazano">0</column>
+        </table>
+        <table name="uzivatel">
+            <column name="idUzivatel">12</column>
+            <column name="Login">Karel</column>
+            <column name="Heslo">jedna</column>
+            <column name="Jmeno">Karel Nový</column>
+            <column name="Email">karel@karel.com</column>
+            <column name="idPrava">3</column>
+            <column name="Smazano">0</column>
+        </table>
+    </database>
+</pma_xml_export>
