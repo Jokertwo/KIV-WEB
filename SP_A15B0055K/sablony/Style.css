@@ -1,0 +1,31 @@
+
+	
+	
+	
+	<style type="text/css">
+		h2 {
+		    color:#069;
+		}
+		</style>
+  
+  
+    <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+   .center {
+    btn-align: center;
+    
+	}
+	
+	#h2 {
+		    color:#8080ff;
+		}
+	
+   	body {
+	   background-color: #808080;
+      padding: 5px;
+   	}
+    </style>
